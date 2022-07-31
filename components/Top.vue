@@ -7,7 +7,7 @@
           <img class="top__ttl-img" src="~/assets/images/img-ttl.png" alt="" />
         </h1>
         <button class="top__btn">
-          <p>はじめる</p>
+          はじめる
         </button>
       </div>
     </div>
@@ -65,6 +65,10 @@ export default {};
     font-family: 'Bigelow Rules', cursive;
     font-family: 'Fredericka the Great', cursive;
     font-family: 'Kaisei Opti', serif;
+    &:hover {
+      transition: .3s;
+      transform: scale(1.2,1.2);
+    }
   }
 }
 
