@@ -1,15 +1,14 @@
 <template>
-<div>
-  <Tutorial/>
-</div>
+  <div>
+    <Top />
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
-}
+  name: "IndexPage",
+};
 </script>
 
 <style lang="scss">
-
 </style>
