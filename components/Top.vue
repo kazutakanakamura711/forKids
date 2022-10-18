@@ -4,6 +4,7 @@
       <div class="top__main">
         <h1 class="top__ttl">
           <span>{{ ttl.txt }}</span>
+          <span>{{ ttl.sub }}</span>
           <img class="top__ttl-img" :src="ttl.img" alt="" />
         </h1>
         <button class="top__btn">
@@ -21,7 +22,8 @@ export default {
   data() {
     return {
       ttl: {
-        txt: "ProgrammingForKids",
+        txt: "Programming",
+        sub: "ForKids",
         img: require("~/assets/images/img-ttl.png"),
       },
       goToGameBtn: "はじめる",
@@ -59,7 +61,7 @@ export default {
     & span {
       display: block;
       color: orange;
-      font-size: 4rem;
+      font-size: 3.8rem;
       letter-spacing: 4px;
       text-align: center;
       font-family: "Fredericka the Great", cursive;
@@ -67,7 +69,7 @@ export default {
       margin-bottom: 64px;
     }
     & img {
-      width: 80%;
+      width: 100%;
       display: block;
       margin: 0 auto 64px;
     }
