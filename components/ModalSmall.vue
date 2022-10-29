@@ -1,10 +1,9 @@
 <template>
   <div class="modal">
-    <div class="modal__overlay">
-      <div class="modal__content">
-        <span v-show="isCloseBtn" class="material-icons modal__closeBtn" @click="onClick">close</span>
-        <slot />
-      </div>
+    <div class="modal__overlay"></div>
+    <div class="modal__content">
+      <span v-show="isCloseBtn" class="material-icons modal__closeBtn" @click="onClick">close</span>
+      <slot />
     </div>
   </div>
 </template>
@@ -35,8 +34,6 @@ export default {
   }
   &__content {
     width: 72vw;
-    height: 80%;
-    max-width: 512px;
     padding: 24px;
     background: #fff;
     border-radius: 8px;

@@ -8,7 +8,6 @@
         <div class="howToPlay__example">
           <span class="material-icons"> crisis_alert </span>
           1:<span class="howToPlay__example-circle">7</span>
-          <span class="material-icons"> crisis_alert </span>
           2:<span class="howToPlay__example-circle">11</span>
         </div>
       </li>
@@ -57,9 +56,11 @@ export default {};
 
 <style lang="scss" scoped>
 .howToPlay {
-  font-family: 'Bigelow Rules', cursive;
-  font-family: 'Fredericka the Great', cursive;
+  /* font-family: 'Bigelow Rules', cursive;
+  font-family: 'Fredericka the Great', cursive; */
   font-family: 'Kaisei Opti', serif;
+  overflow-y: scroll;
+  height: 100%;
   h2 {
     font-size: 3rem;
     text-align: center;
