@@ -1,7 +1,5 @@
 <template>
-  <button @click="onClick">
-    <span class="material-icons">{{ label }}</span>
-  </button>
+  <button @click="onClick">{{ label }}</button>
 </template>
 
 <script>
@@ -11,10 +9,10 @@ export default {
   },
   methods: {
     onClick() {
-      this.$emit("onClick");
+      this.$emit('onClick');
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -25,5 +23,6 @@ button {
   background: red;
   padding: 6px;
   border-radius: 4px;
+  letter-spacing: 1px;
 }
 </style>

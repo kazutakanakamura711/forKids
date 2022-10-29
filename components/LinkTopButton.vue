@@ -1,20 +1,13 @@
 <template>
-  <button @click="onClick">
-    <span class="material-icons">{{ label }}</span>
+  <button>
+    <nuxt-link to="/" class="link">TOPに戻る</nuxt-link>
   </button>
 </template>
 
 <script>
 export default {
-  props: {
-    label: String,
-  },
-  methods: {
-    onClick() {
-      this.$emit("onClick");
-    },
-  },
-};
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -25,5 +18,9 @@ button {
   background: red;
   padding: 6px;
   border-radius: 4px;
+  letter-spacing: 1px;
+  a {
+    color: #fff;
+  }
 }
 </style>

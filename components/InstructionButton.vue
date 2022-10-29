@@ -25,7 +25,6 @@ button {
   font-family: "Fredericka the Great", cursive;
   letter-spacing: 4px;
   border-radius: 8px;
-  font-size: 3rem;
   color: #fff;
   background: red;
   padding: 2px 16px;
@@ -36,7 +35,7 @@ button {
   align-items: center;
   justify-content: center;
   span {
-    font-size: 5rem;
+    font-size: 3rem;
   }
 }
 </style>
