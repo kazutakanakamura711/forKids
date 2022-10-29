@@ -50,7 +50,7 @@
         <div v-show="isComplete && isEnd" class="game__message">
           Congratulations
         </div>
-        <div v-show="!isComplete && isEnd" class="game__message">isMistake</div>
+        <div v-show="!isComplete && isEnd" class="game__message">Mistake</div>
       </div>
       <div class="game__bottom">
         <div class="game__controller">
