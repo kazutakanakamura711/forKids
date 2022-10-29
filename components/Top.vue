@@ -12,8 +12,22 @@
             <span>{{ goToGameBtn }}</span>
           </nuxt-link>
         </button>
+        <button
+          class="top__btn"
+          @click="openHowToPlayModal"
+        >
+          遊び方
+        </button>
       </div>
     </div>
+    <!-- modal -->
+    <ModalBasic
+    v-show="isOpenModal.howToPlay"
+    @onClick="closeHowToPlayModal"
+    :isCloseBtn="isCloseBtn.howToPlay"
+    >
+      <HowToPlayText />
+    </ModalBasic>
   </div>
 </template>
 
@@ -27,7 +41,21 @@ export default {
         img: require("~/assets/images/img-ttl.png"),
       },
       goToGameBtn: "はじめる",
+      isOpenModal: {
+        howToPlay: false,
+      },
+      isCloseBtn: {
+        howToPlay: true,
+      },
     };
+  },
+  methods: {
+    openHowToPlayModal() {
+      this.isOpenModal.howToPlay = true;
+    },
+    closeHowToPlayModal() {
+      this.isOpenModal.howToPlay = false;
+    },
   },
 };
 </script>
