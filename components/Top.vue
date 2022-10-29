@@ -7,18 +7,36 @@
           <span>{{ ttl.sub }}</span>
           <img class="top__ttl-img" :src="ttl.img" alt="" />
         </h1>
-        <button class="top__btn">
-          <nuxt-link to="/game">
-            <span>{{ goToGameBtn }}</span>
-          </nuxt-link>
-        </button>
+        <div class="top__btnContainer">
+          <MonochromeLinkButton
+            class="top__btn"
+            :to="goToGameBtn.to"
+            :ttl="goToGameBtn.ttl"
+          />
+          <MonochromeButtonToOpenModal
+            class="top__btn"
+            :ttl="howToPlayBtn"
+            @onClick="openHowToPlayModal"
+          />
+        </div>
       </div>
     </div>
+    <!-- modal -->
+    <ModalBasic
+      v-show="isOpenModal.howToPlay"
+      @onClick="closeHowToPlayModal"
+      :isCloseBtn="isCloseBtn.howToPlay"
+    >
+      <HowToPlayText />
+    </ModalBasic>
   </div>
 </template>
 
 <script>
+import MonochromeButtonToOpenModal from "./MonochromeButtonToOpenModal.vue";
+import MonochromeLinkButton from "./MonochromeLinkButton.vue";
 export default {
+  components: { MonochromeButtonToOpenModal, MonochromeLinkButton },
   data() {
     return {
       ttl: {
@@ -26,8 +44,26 @@ export default {
         sub: "ForKids",
         img: require("~/assets/images/img-ttl.png"),
       },
-      goToGameBtn: "はじめる",
+      goToGameBtn: {
+        ttl: "はじめる",
+        to: "/game",
+      },
+      howToPlayBtn: "遊び方",
+      isOpenModal: {
+        howToPlay: false,
+      },
+      isCloseBtn: {
+        howToPlay: true,
+      },
     };
+  },
+  methods: {
+    openHowToPlayModal() {
+      this.isOpenModal.howToPlay = true;
+    },
+    closeHowToPlayModal() {
+      this.isOpenModal.howToPlay = false;
+    },
   },
 };
 </script>
@@ -77,16 +113,16 @@ export default {
   &__btn {
     font-size: 3rem;
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 16px;
     font-family: "Bigelow Rules", cursive;
     font-family: "Fredericka the Great", cursive;
     font-family: "Kaisei Opti", serif;
     transition: 0.3s;
     &:hover {
-      transform: scale(1.2, 1.2);
+      opacity: 0.3;
     }
-    & span {
-      color: $baseColor;
+    &:last-child {
+      margin: 0 auto;
     }
   }
 }
