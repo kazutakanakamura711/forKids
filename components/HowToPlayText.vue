@@ -35,16 +35,7 @@
       </li>
       <li>入力したプログラムの確認</li>
       <li>
-        <span class="howToPlay__inventory material-icons"> inventory </span>アイコンの下に、入力したアイコンが順番に表示されます。
-      </li>
-      <li>
-        <span class="howToPlay__inventory material-icons"> inventory </span>アイコンの下に、入力したアイコンが順番に表示されます。
-      </li>
-      <li>
-        <span class="howToPlay__inventory material-icons"> inventory </span>アイコンの下に、入力したアイコンが順番に表示されます。
-      </li>
-      <li>
-        <span class="howToPlay__inventory material-icons"> inventory </span>アイコンの下に、入力したアイコンが順番に表示されます。
+        <span class="howToPlay__inventory material-icons"> inventory </span>アイコンの下に、入力したボタンが順番に表示されます。入力数が多い場合はスライドして確認してください。
       </li>
     </ul>
   </div>
