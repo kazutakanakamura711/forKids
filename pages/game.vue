@@ -117,6 +117,11 @@
               </li>
             </ul>
           </div>
+
+          <br>
+            <span class="game__stock-area">
+              Answer: Answer for the challenge will be shown here. 
+            </span>
         </div>
       </div>
     </div>
