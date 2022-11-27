@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "test": "jest"
   },
   "dependencies": {
     "core-js": "^3.19.3",
@@ -22,5 +23,9 @@
   "engines": {
     "node": "16.13.1",
     "npm": "8.18.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.3",
+    "jest": "^29.3.1"
   }
 }

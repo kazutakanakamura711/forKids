@@ -164,6 +164,8 @@ import HowToPlayText from "../components/HowToPlayText.vue";
 import ModalSmall from "../components/ModalSmall.vue";
 import LinkTopButton from "../components/LinkTopButton.vue";
 import BasicButton from "../components/BasicButton.vue";
+import {find_needed_rotation} from "../services/rotation.js";
+import {move} from "../services/move.js";
 export default {
   data() {
     return {
@@ -198,6 +200,7 @@ export default {
       },
       viewQuestion: [],
       question: [],
+      solution: [],
       isComplete: false,
       targetCount: 0,
       isOpenModal: {
@@ -299,6 +302,45 @@ export default {
         arr.splice(delTarget, 1);
       }
       console.log(this.question);
+    },
+
+    solve_question()
+    {
+      let starting_point = [2,4]
+      let coordinates = []
+      this.question.forEach(location => {
+        let x = location % this.tileLowCount
+        let y = (location - x ) / this.tileLowCount
+        coordinates.push([x,y])
+      })
+      console.log(coordinates)
+
+      function go_from_x1_to_x2(x1, x2, current_direction)
+      {
+        let path = []
+        //Rotate airplane to have exptected direction
+        let needed_rotation 
+        [needed_rotation, current_direction] = find_needed_rotation(x1, x2, current_direction)
+        path.push(needed_rotation)
+        console.log(needed_rotation)
+
+        //Moving
+        let moving_steps
+        [moving_steps, current_direction] = move(x1,x2, current_direction)
+        path.push(moving_steps)
+        console.log(moving_steps)
+        return [path, current_direction]
+      }
+
+      let first_destination = coordinates[0]
+      // let second_destination = coordinates[1]
+
+      let [path1, current_direction] = go_from_x1_to_x2(starting_point, first_destination, "up")
+      console.log("From starting point to x1", path1, current_direction)
+      
+      // let path2, current_direction2 = go_from_x1_to_x2(first_destination, second_destination, current_direction)
+
+
     },
     setGoStraight() {
       this.programArr.push("straight");
@@ -669,6 +711,7 @@ export default {
     this.createMapsData();
     this.createNoGoOnArr();
     this.createQuestion();
+    this.solve_question();
   },
   components: {
     InstructionButton,
