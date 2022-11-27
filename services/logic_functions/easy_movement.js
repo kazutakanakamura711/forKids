@@ -1,4 +1,4 @@
-import {mapping_interger_direction, mapping_direction_interger, Vector2d} from './rotation.js'
+import {mapping_interger_direction, mapping_direction_interger, Vector2d} from './vector.js'
 
 function solve_up_down(x1, x2, current_direction)
 {
