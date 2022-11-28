@@ -1,4 +1,11 @@
 import {mapping_interger_direction, mapping_direction_interger, Vector2d} from './vector.js'
+/*
+Need to divide to 4 cases to solve. 
+
+Combine rotate and easily movement.
+
+*/
+
 
 function solve_up_down(x1, x2, current_direction)
 {
