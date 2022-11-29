@@ -1,6 +1,6 @@
 const {Vector2d} = require ("../logic_functions/vector.js");
 
-let v1 = new Vector2d([0,1]) // x = 0, y = 1
+let v1 = new Vector2d([0,1])
 let v2 = new Vector2d([1,0])
 let v3 = new Vector2d([0,-1])
 let v4 = new Vector2d([Math.sqrt(2)/2,Math.sqrt(2)/2])

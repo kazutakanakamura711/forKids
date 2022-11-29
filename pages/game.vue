@@ -119,11 +119,30 @@
           </div>
 
           <br>
-            <span class="game__stock-area">
-              Answer: Answer for the challenge will be shown here. 
+          <v-btn
+              elevation="2"
+              @click="show_answer"
+              style = "margin-bottom: 2em;"
+            >
+            <span v-if="answers_visibility">
+              Hide answer
             </span>
+            <span v-else>
+              Show answer
+            </span>
+          </v-btn>
+          <div class="game__stock-container" v-show="answers_visibility">
+            <ul class="game__stock-area">
+              <li v-for="(val, i) in answer" :key="i">
+                {{ i + 1 }}:<span class="material-icons">{{ val }}</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
+
+      
     </div>
     <!-- modal -->
     <ModalBasic
@@ -164,8 +183,7 @@ import HowToPlayText from "../components/HowToPlayText.vue";
 import ModalSmall from "../components/ModalSmall.vue";
 import LinkTopButton from "../components/LinkTopButton.vue";
 import BasicButton from "../components/BasicButton.vue";
-import {find_needed_rotation} from "../services/rotation.js";
-import {move} from "../services/move.js";
+import {go_from_x1_to_x2} from "../services/logic_functions/go_from_x1_to_x2.js";
 export default {
   data() {
     return {
@@ -173,6 +191,8 @@ export default {
       tileLowCount: 5,
       tileCount: 25,
       rotate: 0,
+      answer: ["straight", "rotate_left", "rotate_right"],
+      answers_visibility: false,
       direction: {
         isUp: true,
         isRight: false,
@@ -308,39 +328,50 @@ export default {
     {
       let starting_point = [2,4]
       let coordinates = []
+      coordinates.push(starting_point)
       this.question.forEach(location => {
         let x = location % this.tileLowCount
         let y = (location - x ) / this.tileLowCount
         coordinates.push([x,y])
       })
-      console.log(coordinates)
 
-      function go_from_x1_to_x2(x1, x2, current_direction)
+      let number_of_points = coordinates.length
+      let current_direction = "up"
+      let temp_path = []
+      let path = []
+      let combined_path = []
+      for(let i = 0; i <= number_of_points - 2;i++)
       {
-        let path = []
-        //Rotate airplane to have exptected direction
-        let needed_rotation 
-        [needed_rotation, current_direction] = find_needed_rotation(x1, x2, current_direction)
-        path.push(needed_rotation)
-        console.log(needed_rotation)
-
-        //Moving
-        let moving_steps
-        [moving_steps, current_direction] = move(x1,x2, current_direction)
-        path.push(moving_steps)
-        console.log(moving_steps)
-        return [path, current_direction]
+        [temp_path, current_direction] =  go_from_x1_to_x2(coordinates[i], coordinates[i+1], current_direction)
+        combined_path.push(temp_path)
       }
 
-      let first_destination = coordinates[0]
-      // let second_destination = coordinates[1]
+      for(let i=0; i < combined_path.length; i++)
+      {
+        for(let j=0;j<combined_path[i].length;j++)
+        {
+          if((combined_path[i][j]).length)
+          {
+            for(let k=0; k<combined_path[i][j].length; k++)
+            {
+              path.push(combined_path[i][j][k])
+            }
+          }
+        }
+      }
 
-      let [path1, current_direction] = go_from_x1_to_x2(starting_point, first_destination, "up")
-      console.log("From starting point to x1", path1, current_direction)
-      
-      // let path2, current_direction2 = go_from_x1_to_x2(first_destination, second_destination, current_direction)
-
-
+      function convert_direction_string(item)
+      {
+        if (item == "go_straight") return "straight"
+        if (item == "turn_left") return "rotate_left"
+        if (item == "turn_right") return "rotate_right"
+      }
+      console.log("Shown path",path)
+      this.answer = path.map(convert_direction_string)
+    },
+    show_answer()
+    {
+      this.answers_visibility = !this.answers_visibility
     },
     setGoStraight() {
       this.programArr.push("straight");

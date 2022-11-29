@@ -24,9 +24,9 @@ class Vector2d
       }
 
 let direction_vectors = {
-"up" : new Vector2d([0,1]),
+"up" : new Vector2d([0,-1]),
 "right" : new Vector2d([1,0]),
-"down" : new Vector2d([0,-1]),
+"down" : new Vector2d([0,1]),
 "left": new Vector2d([-1,0]),
 }
 
