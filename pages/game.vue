@@ -117,8 +117,32 @@
               </li>
             </ul>
           </div>
+
+          <br>
+          <v-btn
+              elevation="2"
+              @click="show_answer"
+              style = "margin-bottom: 2em;"
+            >
+            <span v-if="answers_visibility">
+              Hide answer
+            </span>
+            <span v-else>
+              Show answer
+            </span>
+          </v-btn>
+          <div class="game__stock-container" v-show="answers_visibility">
+            <ul class="game__stock-area">
+              <li v-for="(val, i) in answer" :key="i">
+                {{ i + 1 }}:<span class="material-icons">{{ val }}</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
+
+      
     </div>
     <!-- modal -->
     <ModalBasic
@@ -159,6 +183,7 @@ import HowToPlayText from "../components/HowToPlayText.vue";
 import ModalSmall from "../components/ModalSmall.vue";
 import LinkTopButton from "../components/LinkTopButton.vue";
 import BasicButton from "../components/BasicButton.vue";
+import {go_from_x1_to_x2} from "../services/logic_functions/go_from_x1_to_x2.js";
 export default {
   data() {
     return {
@@ -166,6 +191,8 @@ export default {
       tileLowCount: 5,
       tileCount: 25,
       rotate: 0,
+      answer: ["straight", "rotate_left", "rotate_right"],
+      answers_visibility: false,
       direction: {
         isUp: true,
         isRight: false,
@@ -193,6 +220,7 @@ export default {
       },
       viewQuestion: [],
       question: [],
+      solution: [],
       isComplete: false,
       targetCount: 0,
       isOpenModal: {
@@ -294,6 +322,56 @@ export default {
         arr.splice(delTarget, 1);
       }
       console.log(this.question);
+    },
+
+    solve_question()
+    {
+      let starting_point = [2,4]
+      let coordinates = []
+      coordinates.push(starting_point)
+      this.question.forEach(location => {
+        let x = location % this.tileLowCount
+        let y = (location - x ) / this.tileLowCount
+        coordinates.push([x,y])
+      })
+
+      let number_of_points = coordinates.length
+      let current_direction = "up"
+      let temp_path = []
+      let path = []
+      let combined_path = []
+      for(let i = 0; i <= number_of_points - 2;i++)
+      {
+        [temp_path, current_direction] =  go_from_x1_to_x2(coordinates[i], coordinates[i+1], current_direction)
+        combined_path.push(temp_path)
+      }
+
+      for(let i=0; i < combined_path.length; i++)
+      {
+        for(let j=0;j<combined_path[i].length;j++)
+        {
+          if((combined_path[i][j]).length)
+          {
+            for(let k=0; k<combined_path[i][j].length; k++)
+            {
+              path.push(combined_path[i][j][k])
+            }
+          }
+        }
+      }
+
+      function convert_direction_string(item)
+      {
+        if (item == "go_straight") return "straight"
+        if (item == "turn_left") return "rotate_left"
+        if (item == "turn_right") return "rotate_right"
+      }
+      console.log("Shown path",path)
+      this.answer = path.map(convert_direction_string)
+    },
+    show_answer()
+    {
+      this.answers_visibility = !this.answers_visibility
     },
     setGoStraight() {
       this.programArr.push("straight");
@@ -664,6 +742,7 @@ export default {
     this.createMapsData();
     this.createNoGoOnArr();
     this.createQuestion();
+    this.solve_question();
   },
   components: {
     InstructionButton,
