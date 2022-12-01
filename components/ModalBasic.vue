@@ -34,8 +34,8 @@ export default {
     left: 0;
   }
   &__content {
-    width: 72vw;
-    height: 80%;
+    width: 84vw;
+    height: 88%;
     max-width: 512px;
     padding: 24px;
     background: #fff;

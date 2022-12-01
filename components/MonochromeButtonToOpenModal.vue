@@ -20,6 +20,6 @@ button {
   color: #342C21;
   border: solid 1px #342C21;
   border-radius: 8px;
-  padding: 2px 16px;
+  padding: 8px 16px;
 }
 </style>
