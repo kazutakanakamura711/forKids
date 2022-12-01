@@ -53,12 +53,12 @@ export default {};
   overflow-y: scroll;
   height: 100%;
   h2 {
-    font-size: 3rem;
+    font-size: 2.4rem;
     text-align: center;
     margin-bottom: 16px;
   }
   ul {
-    font-size: 1.6rem;
+    /* font-size: 1.4rem; */
     line-height: 26px;
     li {
       margin-bottom: 16px;
@@ -67,7 +67,7 @@ export default {};
   &__example {
     /* font-family: "Bigelow Rules", cursive; */
     font-family: "Fredericka the Great", cursive;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     letter-spacing: 1px;
     margin-bottom: 8px;
     display: flex;
