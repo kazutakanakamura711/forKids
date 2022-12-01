@@ -142,7 +142,7 @@
         </div>
       </div>
 
-      
+
     </div>
     <!-- modal -->
     <ModalBasic
@@ -771,7 +771,7 @@ export default {
       background: black;
       border: double 16px #fff;
       border-radius: 50%;
-      font-size: 16rem;
+      font-size: 12rem;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -852,7 +852,7 @@ export default {
     display: flex;
     align-items: center;
     &-time {
-      font-size: 1.8rem;
+      font-size: 1.2rem;
       width: 58px;
     }
   }
@@ -898,7 +898,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 4rem;
+    font-size: 2.4rem;
     opacity: 0.1;
   }
   &__img {
@@ -937,7 +937,7 @@ export default {
   &__question {
     /* font-family: "Bigelow Rules", cursive; */
     font-family: "Fredericka the Great", cursive;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
@@ -998,7 +998,7 @@ export default {
       display: flex;
     }
     &-area {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       width: 100%;
       display: flex;
       flex-wrap: nowrap;
@@ -1011,7 +1011,7 @@ export default {
     }
   }
   &__message {
-    font-size: 3rem;
+    font-size: 1.7rem;
     font-family: "Fredericka the Great", cursive;
     letter-spacing: 4px;
     color: orange;
@@ -1023,12 +1023,12 @@ export default {
     transform: translate(-50%, -50%);
     transition: 1s;
     @media (min-width: 356px) {
-      font-size: 4rem;
+      font-size: 2.0rem;
     }
   }
   &__modalGameEndMsg {
     font-family: "Kaisei Opti", serif;
-    font-size: 3.2rem;
+    font-size: 2.0rem;
     letter-spacing: 1px;
     margin-bottom: 16px;
     text-align: center;
@@ -1039,7 +1039,7 @@ export default {
     justify-content: space-around;
   }
   &__modalBtn {
-    font-size: 1.6rem;
+    font-size: 1.0rem;
   }
 }
 </style>
