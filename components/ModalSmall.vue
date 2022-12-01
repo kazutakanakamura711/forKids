@@ -33,12 +33,13 @@ export default {
     left: 0;
   }
   &__content {
-    width: 72vw;
+    width: 84vw;
+    max-width: 512px;
     padding: 24px;
     background: #fff;
     border-radius: 8px;
     position: absolute;
-    top: 50%;
+    top: 50vh;
     left: 50%;
     transform: translate(-50%, -50%);
     word-break: break-word;
