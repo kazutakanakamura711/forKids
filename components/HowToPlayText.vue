@@ -26,6 +26,10 @@
         <p>飛行機が右に向きます。</p>
       </li>
       <li class="howToPlay__flexContainer">
+        <span class="howToPlay__desc-btn material-icons"> backspace </span>
+        <p>入力した最後のプログラムコマンドを削除します。</p>
+      </li>
+      <li class="howToPlay__flexContainer">
         <span class="howToPlay__desc-btn material-icons"> delete </span>
         <p>入力したプログラムをリセットします。</p>
       </li>
@@ -36,6 +40,11 @@
       <li>入力したプログラムの確認</li>
       <li>
         <span class="howToPlay__inventory material-icons"> inventory </span>アイコンの下に、入力したボタンが順番に表示されます。入力数が多い場合はスライドして確認してください。
+      </li>
+      <li>答えの表示</li>
+      <li class="howToPlay__flexContainer">
+        <span class="howToPlay__desc-btn material-icons"> assistant_navigation </span>
+        <p>答えが表示されます。入力数が多い場合はスライドして確認してください。もう一度押すと答えを非表示にします。</p>
       </li>
     </ul>
   </div>
