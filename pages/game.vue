@@ -89,6 +89,12 @@
             <InstructionButton
               class="game__buttons-btn"
               v-show="!run"
+              :label="btnLabel.backspace"
+              @onClick="backspaceProgram"
+            />
+            <InstructionButton
+              class="game__buttons-btn"
+              v-show="!run"
               :label="btnLabel.reset"
               @onClick="resetProgram"
             />
@@ -97,6 +103,11 @@
               v-show="!run"
               :label="btnLabel.run"
               @onClick="runProgram"
+            />
+            <DisabledButton
+              class="game__buttons-btn--disabled"
+              v-show="run"
+              :label="btnLabel.backspace"
             />
             <DisabledButton
               class="game__buttons-btn--disabled"
@@ -206,6 +217,7 @@ export default {
       },
       btnLabel: {
         run: "keyboard_return",
+        backspace: "backspace",
         reset: "delete",
         description: "description",
       },
@@ -381,6 +393,9 @@ export default {
     },
     setTurnRight() {
       this.programArr.push("rotate_right");
+    },
+    backspaceProgram() {
+      this.programArr.length && this.programArr.pop();
     },
     resetProgram() {
       this.programArr = [];
@@ -977,19 +992,21 @@ export default {
   }
   &__buttons {
     &-container {
+      width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      align-items: center;
       margin-bottom: 8px;
-      @media (min-width: $breakPoint) {
-        margin: 0 auto 32px;
-      }
     }
-    &-btn {
-      width: 49%;
+    &-btn,
+    &-btn--disabled {
+      margin-right: 16px;
       border-radius: 8px;
-      &--disabled {
-        width: 49%;
-        border-radius: 8px;
+      &:nth-child(3) {
+        margin-right: 0;
+      }
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
