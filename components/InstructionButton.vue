@@ -30,7 +30,7 @@ button {
   padding: 2px 16px;
   opacity: 0.9;
   width: 100%;
-  min-height: 64px;
+  min-height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
