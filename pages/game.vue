@@ -849,7 +849,7 @@ export default {
     &-line {
       position: absolute;
       width: 2px;
-      height: 25vh;
+      height: 23vh;
       background: red;
       top: 0;
       transform-origin: bottom;
