@@ -208,10 +208,6 @@ export default {
         reset: "delete",
         description: "description",
         assistantNavigation: "assistant_navigation",
-        // assistantNavigation: {
-        //   off: "assistant_navigation",
-        //   on: "close",
-        // }
       },
       enter: "GO",
       programArr: [],
