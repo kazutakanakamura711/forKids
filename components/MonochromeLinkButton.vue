@@ -24,11 +24,9 @@ export default {
 button {
   border: solid 1px #342c21;
   border-radius: 8px;
+  padding: 8px 16px;
   a {
     color: #342c21;
-  }
-  span {
-    padding: 2px 16px;
   }
 }
 </style>

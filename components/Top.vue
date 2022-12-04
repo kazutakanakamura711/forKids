@@ -97,7 +97,7 @@ export default {
     & span {
       display: block;
       color: orange;
-      font-size: 3.8rem;
+      font-size: 2.2rem;
       letter-spacing: 4px;
       text-align: center;
       font-family: "Fredericka the Great", cursive;
@@ -111,7 +111,7 @@ export default {
     }
   }
   &__btn {
-    font-size: 3rem;
+    font-size: 2.4rem;
     display: block;
     margin: 0 auto 16px;
     font-family: "Bigelow Rules", cursive;

@@ -33,7 +33,7 @@ button {
   align-items: center;
   justify-content: center;
   span {
-    font-size: 5rem;
+    font-size: 2rem;
   }
 }
 </style>

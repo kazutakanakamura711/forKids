@@ -16,7 +16,7 @@ button {
   width: fit-content;
   color: #fff;
   background: red;
-  padding: 6px;
+  padding: 8px 6px;
   border-radius: 4px;
   letter-spacing: 1px;
   a {

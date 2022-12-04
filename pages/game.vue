@@ -89,6 +89,12 @@
             <InstructionButton
               class="game__buttons-btn"
               v-show="!run"
+              :label="btnLabel.backspace"
+              @onClick="backspaceProgram"
+            />
+            <InstructionButton
+              class="game__buttons-btn"
+              v-show="!run"
               :label="btnLabel.reset"
               @onClick="resetProgram"
             />
@@ -97,6 +103,11 @@
               v-show="!run"
               :label="btnLabel.run"
               @onClick="runProgram"
+            />
+            <DisabledButton
+              class="game__buttons-btn--disabled"
+              v-show="run"
+              :label="btnLabel.backspace"
             />
             <DisabledButton
               class="game__buttons-btn--disabled"
@@ -116,6 +127,17 @@
                 {{ i + 1 }}:<span class="material-icons">{{ val }}</span>
               </li>
             </ul>
+          </div>
+
+          <div class="game__stock-wrapper">
+            <SmallButton :label="getAssistantNavLabel" @onClick="show_answer" />
+            <div class="game__stock-container" v-show="answers_visibility">
+              <ul class="game__stock-area">
+                <li v-for="(val, i) in answer" :key="i">
+                  {{ i + 1 }}:<span class="material-icons">{{ val }}</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -159,6 +181,7 @@ import HowToPlayText from "../components/HowToPlayText.vue";
 import ModalSmall from "../components/ModalSmall.vue";
 import LinkTopButton from "../components/LinkTopButton.vue";
 import BasicButton from "../components/BasicButton.vue";
+import { go_from_x1_to_x2 } from "../services/logic_functions/go_from_x1_to_x2.js";
 export default {
   data() {
     return {
@@ -166,6 +189,8 @@ export default {
       tileLowCount: 5,
       tileCount: 25,
       rotate: 0,
+      answer: ["straight", "rotate_left", "rotate_right"],
+      answers_visibility: false,
       direction: {
         isUp: true,
         isRight: false,
@@ -179,8 +204,10 @@ export default {
       },
       btnLabel: {
         run: "keyboard_return",
+        backspace: "backspace",
         reset: "delete",
         description: "description",
+        assistantNavigation: "assistant_navigation",
       },
       enter: "GO",
       programArr: [],
@@ -193,6 +220,7 @@ export default {
       },
       viewQuestion: [],
       question: [],
+      solution: [],
       isComplete: false,
       targetCount: 0,
       isOpenModal: {
@@ -215,6 +243,9 @@ export default {
     },
     showPlayTime() {
       return (this.playTime / 10).toFixed(1);
+    },
+    getAssistantNavLabel() {
+      return this.btnLabel.assistantNavigation;
     },
   },
   methods: {
@@ -295,6 +326,55 @@ export default {
       }
       console.log(this.question);
     },
+
+    solve_question() {
+      let starting_point = [2, 4];
+      let coordinates = [];
+      coordinates.push(starting_point);
+      this.question.forEach((location) => {
+        let x = location % this.tileLowCount;
+        let y = (location - x) / this.tileLowCount;
+        coordinates.push([x, y]);
+      });
+
+      let number_of_points = coordinates.length;
+      let current_direction = "up";
+      let temp_path = [];
+      let path = [];
+      let combined_path = [];
+      for (let i = 0; i <= number_of_points - 2; i++) {
+        [temp_path, current_direction] = go_from_x1_to_x2(
+          coordinates[i],
+          coordinates[i + 1],
+          current_direction
+        );
+        combined_path.push(temp_path);
+      }
+
+      for (let i = 0; i < combined_path.length; i++) {
+        for (let j = 0; j < combined_path[i].length; j++) {
+          if (combined_path[i][j].length) {
+            for (let k = 0; k < combined_path[i][j].length; k++) {
+              path.push(combined_path[i][j][k]);
+            }
+          }
+        }
+      }
+
+      function convert_direction_string(item) {
+        if (item == "go_straight") return "straight";
+        if (item == "turn_left") return "rotate_left";
+        if (item == "turn_right") return "rotate_right";
+      }
+      console.log("Shown path", path);
+      this.answer = path.map(convert_direction_string);
+    },
+    show_answer() {
+      this.answers_visibility = !this.answers_visibility;
+      this.answers_visibility
+        ? (this.btnLabel.assistantNavigation = "close")
+        : (this.btnLabel.assistantNavigation = "assistant_navigation");
+    },
     setGoStraight() {
       this.programArr.push("straight");
     },
@@ -303,6 +383,9 @@ export default {
     },
     setTurnRight() {
       this.programArr.push("rotate_right");
+    },
+    backspaceProgram() {
+      this.programArr.length && this.programArr.pop();
     },
     resetProgram() {
       this.programArr = [];
@@ -664,6 +747,7 @@ export default {
     this.createMapsData();
     this.createNoGoOnArr();
     this.createQuestion();
+    this.solve_question();
   },
   components: {
     InstructionButton,
@@ -692,7 +776,7 @@ export default {
       background: black;
       border: double 16px #fff;
       border-radius: 50%;
-      font-size: 16rem;
+      font-size: 12rem;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -755,7 +839,7 @@ export default {
     &-line {
       position: absolute;
       width: 2px;
-      height: 25vh;
+      height: 23vh;
       background: red;
       top: 0;
       transform-origin: bottom;
@@ -773,7 +857,7 @@ export default {
     display: flex;
     align-items: center;
     &-time {
-      font-size: 1.8rem;
+      font-size: 1.2rem;
       width: 58px;
     }
   }
@@ -819,7 +903,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 4rem;
+    font-size: 2.4rem;
     opacity: 0.1;
   }
   &__img {
@@ -858,7 +942,7 @@ export default {
   &__question {
     /* font-family: "Bigelow Rules", cursive; */
     font-family: "Fredericka the Great", cursive;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
@@ -898,28 +982,35 @@ export default {
   }
   &__buttons {
     &-container {
+      width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      align-items: center;
       margin-bottom: 8px;
-      @media (min-width: $breakPoint) {
-        margin: 0 auto 32px;
-      }
     }
-    &-btn {
-      width: 49%;
+    &-btn,
+    &-btn--disabled {
+      margin-right: 16px;
       border-radius: 8px;
-      &--disabled {
-        width: 49%;
-        border-radius: 8px;
+      &:nth-child(3) {
+        margin-right: 0;
+      }
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
   &__stock {
+    &-wrapper {
+      display: flex;
+      overflow: scroll;
+    }
     &-container {
       display: flex;
+      margin-bottom: 4px;
     }
     &-area {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       width: 100%;
       display: flex;
       flex-wrap: nowrap;
@@ -932,7 +1023,7 @@ export default {
     }
   }
   &__message {
-    font-size: 3rem;
+    font-size: 1.7rem;
     font-family: "Fredericka the Great", cursive;
     letter-spacing: 4px;
     color: orange;
@@ -944,12 +1035,12 @@ export default {
     transform: translate(-50%, -50%);
     transition: 1s;
     @media (min-width: 356px) {
-      font-size: 4rem;
+      font-size: 2rem;
     }
   }
   &__modalGameEndMsg {
     font-family: "Kaisei Opti", serif;
-    font-size: 3.2rem;
+    font-size: 2rem;
     letter-spacing: 1px;
     margin-bottom: 16px;
     text-align: center;
@@ -960,7 +1051,7 @@ export default {
     justify-content: space-around;
   }
   &__modalBtn {
-    font-size: 1.6rem;
+    font-size: 1rem;
   }
 }
 </style>
