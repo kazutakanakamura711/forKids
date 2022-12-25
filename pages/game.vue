@@ -27,7 +27,7 @@
         </div>
         <div class="game__timeDisplay">
           <span class="material-icons"> timer </span>
-          <span class="game__timeDisplay-time">{{ showPlayTime }}</span>
+          <span class="game__timeDisplay-time">{{ getRemainingTime }}</span>
         </div>
       </div>
       <div class="game__map">
@@ -158,7 +158,7 @@
     >
       <p v-show="isComplete" class="game__modalGameEndMsg">おめでとう！</p>
       <p v-show="isComplete" class="game__modalGameEndMsg">
-        今回のタイムは{{ showPlayTime }}秒です
+        今回のタイムは{{ getCompletionTime }}秒です
       </p>
       <p v-show="!isComplete" class="game__modalGameEndMsg">失敗。。。</p>
       <div class="game__modalBtnContainer">
@@ -227,6 +227,7 @@ export default {
         howToPlay: false,
         continue: false,
       },
+      timeLimit: 400,
       playTime: 0,
       clearTime: "",
       isCloseBtn: {
@@ -241,8 +242,11 @@ export default {
     stockProgram() {
       return this.programArr;
     },
-    showPlayTime() {
+    getRemainingTime() {
       return (this.playTime / 10).toFixed(1);
+    },
+    getCompletionTime() {
+      return ((this.timeLimit / 10) - (this.playTime / 10)).toFixed(1);
     },
     getAssistantNavLabel() {
       return this.btnLabel.assistantNavigation;
@@ -689,6 +693,7 @@ export default {
     },
     runProgram() {
       this.run = true;
+      clearInterval(this.clearTime);
       if (this.programArr.length) {
         let val = this.programArr.shift();
         console.log(this.programArr);
@@ -732,11 +737,21 @@ export default {
     },
     countUpTimer() {
       this.clearTime = setInterval(() => {
-        this.playTime++;
+        this.playTime--;
+        if (this.playTime <= 0) {
+          clearInterval(this.clearTime);
+          this.isEnd = true;
+          this.run = true;
+          clearInterval(this.clearTime);
+          setTimeout(() => {
+            this.openContinueModal();
+          }, 2000);
+        }
       }, 100);
     },
   },
   mounted() {
+    this.playTime = this.timeLimit;
     scrollTo({ top: 10000, behavior: "smooth" });
     setTimeout(() => {
       this.isCountAnima = false;
