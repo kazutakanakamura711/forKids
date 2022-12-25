@@ -851,7 +851,11 @@ export default {
   &__head {
     display: flex;
     justify-content: space-between;
-    margin: 2%;
+    margin: 1%;
+    @media (min-width: $breakPoint) {
+      width: 50vw;
+      margin: 1% auto;
+    }
   }
   &__timeDisplay {
     display: flex;
