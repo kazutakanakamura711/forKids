@@ -227,7 +227,7 @@ export default {
         howToPlay: false,
         continue: false,
       },
-      timeLimit: 400,
+      timeLimit: 3000,
       playTime: 0,
       clearTime: "",
       isCloseBtn: {
